@@ -284,7 +284,7 @@
             </xsl:if>
 
             <!-- CSS included here, JS at end of body. -->
-            <link href="{$bootstrapURL}/css/bootstrap.min.css" rel="stylesheet"/>
+			<link href="{$bootstrapURL}/css/bootstrap.min.css" rel="stylesheet" charset="UTF-8"/>
 
             <!-- Set CSS styles -->
             <style type="text/css">
