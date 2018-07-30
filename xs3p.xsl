@@ -97,20 +97,24 @@
  exclude-result-prefixes="xsd ppp html">
  
 	<msxsl:script language="JScript" implements-prefix="js">
+	<![CDATA[
 	    function getNow()
 	    {
 			var today = new Date();
 			var yyyy = today.getFullYear();
-			var MM = today.getMonth()+1; //January is 0!
+			var MM = today.getMonth() + 1; //January is 0!
+			if(MM < 10){
+				MM = '0' + MM;
+			}
 			var dd = today.getDate();
-			var HH = today.getHours();
-			var mm = today.getMinutes();
-			var ss = today.getSeconds();
+			if(dd < 10){
+				dd = '0' + dd;
+			}
 			
 			var date = yyyy + "-" + MM + "-" + dd;
-			var time = HH + ":" + mm + ":" + ss
-			return date + " " + time;
+			return date;
 	    } 
+	]]>
 	</msxsl:script> 
 	
    <xsl:output
@@ -202,10 +206,7 @@
    <xsl:variable name="ATTR_INDENT">1</xsl:variable>
 
    <!-- Title to use if none provided -->
-   <xsl:variable name="DEFAULT_TITLE">
-		XML Schema Documentation Created On:
-		<xsl:value-of select="js:getNow()"/>
-   </xsl:variable>
+   <xsl:variable name="DEFAULT_TITLE">XML Schema Documentation</xsl:variable>
 
    <!-- Prefixes used for anchor names -->
       <!-- Type definitions -->
@@ -332,8 +333,8 @@
          <body data-spy="scroll" data-target=".xs3p-sidebar" data-offset="65">
 
             <div class="navbar navbar-fixed-top navbar-inverse" role="navigation">
-               <div class="container">
-                  <div class="navbar-header">
+               <div class="row">
+                  <div class="col-lg-8 col-md-8 col-sm-8 col-xs-7">
                       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                          <span class="sr-only">Toggle navigation</span>
                          <span class="icon-bar"><xsl:text> </xsl:text></span>
@@ -341,6 +342,11 @@
                          <span class="icon-bar"><xsl:text> </xsl:text></span>
                       </button>
                       <a class="navbar-brand xs3p-navbar-title"><xsl:value-of select="$actualTitle"/></a>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
+                    <a class="built-date xs3p-navbar-title pull-right">
+                       built date: <xsl:value-of select="js:getNow()"/>
+                    </a>
                   </div>
                </div>
             </div>
@@ -852,6 +858,12 @@ pre {
         top: 65px;
         width: 22%;
     }
+}
+
+.built-date {
+  height: 50px;
+  padding: 15px 15px;
+  line-height: 20px;
 }
 </xsl:text>
    </xsl:template>
