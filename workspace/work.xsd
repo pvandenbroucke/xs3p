@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema id="ComponentDefinition"
+    targetNamespace="http://www.ronsun.com/ComponentDefinition/Guide.md"
+    elementFormDefault="qualified"
+    xmlns:me="http://www.ronsun.com/ComponentDefinition/Guide.md"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+  <xs:element name="Root">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Component" type="me:componentInfo"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  
+  <xs:complexType name="componentInfo">
+    <xs:sequence>
+      <xs:element name="DependentOn">
+        <xs:annotation>
+          <xs:documentation>
+            <![CDATA[this is DependentOn]]>
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute name="UniqueName" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>
+          <![CDATA[this is UniqueName]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Order" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>
+          <![CDATA[this is Order]]>
+        </xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:simpleType name="componentTypeEnum">
+    <xs:annotation>
+      <xs:documentation>
+        <![CDATA[
+        `Type1`: this is type1  
+        `Type2`: this is type2
+        ]]>
+      </xs:documentation>
+    </xs:annotation>
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Typ1" />
+      <xs:enumeration value="Typ2" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

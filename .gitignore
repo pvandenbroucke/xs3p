@@ -2,3 +2,13 @@
 examples/xsltproc-results/*
 examples/msxsl-results/*
 examples/xalanj-results/*
+
+#dependency resources
+examples/msxsl.exe
+
+#workspace
+workspace/*
+!workspace/msxsl.exe
+!workspace/msxsl.msi
+!workspace/*.bat
+!workspace/*.xsd
