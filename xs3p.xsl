@@ -91,9 +91,28 @@
  xmlns:html="http://www.w3.org/1999/xhtml"
  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
  xmlns:ppp="http://titanium.dstc.edu.au/xml/xs3p"
+ xmlns:msxsl="urn:schemas-microsoft-com:xslt"
+ xmlns:js="urn:JScript"
  version="1.0"
  exclude-result-prefixes="xsd ppp html">
-
+ 
+	<msxsl:script language="JScript" implements-prefix="js">
+	    function getNow()
+	    {
+			var today = new Date();
+			var yyyy = today.getFullYear();
+			var MM = today.getMonth()+1; //January is 0!
+			var dd = today.getDate();
+			var HH = today.getHours();
+			var mm = today.getMinutes();
+			var ss = today.getSeconds();
+			
+			var date = yyyy + "-" + MM + "-" + dd;
+			var time = HH + ":" + mm + ":" + ss
+			return date + " " + time;
+	    } 
+	</msxsl:script> 
+	
    <xsl:output
     method="xml"
     omit-xml-declaration="yes"
@@ -183,7 +202,10 @@
    <xsl:variable name="ATTR_INDENT">1</xsl:variable>
 
    <!-- Title to use if none provided -->
-   <xsl:variable name="DEFAULT_TITLE">XML Schema Documentation</xsl:variable>
+   <xsl:variable name="DEFAULT_TITLE">
+		XML Schema Documentation Created On:
+		<xsl:value-of select="js:getNow()"/>
+   </xsl:variable>
 
    <!-- Prefixes used for anchor names -->
       <!-- Type definitions -->
