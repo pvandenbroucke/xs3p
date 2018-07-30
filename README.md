@@ -4,7 +4,7 @@
 ### Changes in this fork
 + Add workspace folder for generated files and some dependence files.
 + Fix encoding issue when load bootstrap on Chrome.
-+ Merge branch 'Bob4ever-patch-1' from repository https://github.com/ronsun/xs3p/commit/5c12ea21c84ef5c85b4e07eb766427b57434440d.
++ Merge branch 'Bob4ever-patch-1' from repository https://github.com/Bob4ever/xs3p/tree/Bob4ever-patch-1
 + Apply 'PrintSampleDocumentation' to enumeration.
 + Expand all CollapseableBox by default.
 + Add built date at the top-right corner of document for version control.
