@@ -345,7 +345,8 @@
                   </div>
                   <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">
                     <a class="built-date xs3p-navbar-title pull-right">
-                       built date: <xsl:value-of select="js:getNow()"/>
+                        <xsl:text>built date: </xsl:text>
+                        <xsl:value-of select="js:getNow()"/>
                     </a>
                   </div>
                </div>
@@ -8166,31 +8167,16 @@ was not specified in the links file, <xsl:value-of select="$linksFile"/>.
       <xsl:param name="simpleRestrict"/>
 	  
       <xsl:if test="$simpleRestrict/xsd:enumeration">
-         <em>value</em>
-         <xsl:text> comes from list: [</xsl:text>
+         <em>value comes from list:</em>
 		 
          <xsl:for-each select="$simpleRestrict/xsd:enumeration">
-            <xsl:variable name="documentation">
-               <xsl:for-each select="./xsd:annotation/xsd:documentation">
-                  <xsl:if test="position()!=1">
-                     <xsl:text>,</xsl:text>
-                  </xsl:if>
-                  <xsl:value-of select="generate-id(.)"/>
-               </xsl:for-each>
-            </xsl:variable>
+			<br />
+			<xsl:value-of select="@value"/>
 			
-            <xsl:if test="position()!=1">
-               <xsl:text>,</xsl:text>
-            </xsl:if>
-			
-		    <xsl:text>'</xsl:text>
-			<a class="dropdown-toggle" data-toggle="modal" data-target="#{$documentation}-popup" href="#">
-			   <xsl:value-of select="@value"/>
-			</a>
-		    <xsl:text>'</xsl:text>
+		   <xsl:call-template name="PrintSampleDocumentation">
+			  <xsl:with-param name="component" select="."/>
+		   </xsl:call-template>
          </xsl:for-each>
-
-         <xsl:text>]</xsl:text>
       </xsl:if>
    </xsl:template>
 
