@@ -5459,7 +5459,7 @@ pre {
          <xsl:with-param name="contents">
             <xsl:apply-templates select="$component" mode="schemaComponent"/>
          </xsl:with-param>
-         <xsl:with-param name="isOpened">false</xsl:with-param>
+         <xsl:with-param name="isOpened">true</xsl:with-param>
       </xsl:call-template>
    </xsl:template>
 
