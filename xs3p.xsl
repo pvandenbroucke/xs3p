@@ -284,7 +284,7 @@
             </xsl:if>
 
             <!-- CSS included here, JS at end of body. -->
-			<link href="{$bootstrapURL}/css/bootstrap.min.css" rel="stylesheet" charset="UTF-8"/>
+            <link href="{$bootstrapURL}/css/bootstrap.min.css" rel="stylesheet" charset="UTF-8"/>
 
             <!-- Set CSS styles -->
             <style type="text/css">
@@ -2485,6 +2485,47 @@ pre {
      -->
    <xsl:template match="text()" mode="hiddendoc"/>
   
+   <xsl:template match="xsd:enumeration" mode="hiddendoc">
+      <xsl:if test="./xsd:annotation/xsd:documentation">
+         <xsl:variable name="documentation">
+            <xsl:for-each select="./xsd:annotation/xsd:documentation">
+               <xsl:if test="position()!=1">
+                  <xsl:text>,</xsl:text>
+               </xsl:if>
+               <xsl:value-of select="generate-id(.)"/>
+            </xsl:for-each>
+         </xsl:variable>
+         <xsl:variable name="typeName" select="../parent::xsd:simpleType/@name"/>
+
+         <div class="modal fade {$typeName}" id="{$documentation}-popup" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog unpre">
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&#215;</button>
+                 <h4 class="modal-title" id="{$documentation}-label">
+				   <xsl:text>Enumuration </xsl:text>
+				   <xsl:value-of select="$typeName"/>
+				   <xsl:text>.</xsl:text>
+				   <xsl:value-of select="@value"/>
+                 </h4>
+               </div>
+               <div class="modal-body">
+                 <xsl:call-template name="PrintAnnotation">
+                    <xsl:with-param name="component" select="."/>
+                    <xsl:with-param name="hidden" select="'true'"/>
+                 </xsl:call-template>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+           </div>
+         </div>
+      </xsl:if>
+     
+      <xsl:apply-templates select="child::node()" mode="hiddendoc"/>
+   </xsl:template>
+
    <xsl:template match="xsd:element | xsd:attribute | xsd:simpleType" mode="hiddendoc">
       <xsl:if test="./xsd:annotation/xsd:documentation">
          <xsl:variable name="documentation">
@@ -8089,21 +8130,33 @@ was not specified in the links file, <xsl:value-of select="$linksFile"/>.
      -->
    <xsl:template name="PrintEnumFacets">
       <xsl:param name="simpleRestrict"/>
-
+	  
       <xsl:if test="$simpleRestrict/xsd:enumeration">
          <em>value</em>
-         <xsl:text> comes from list: {</xsl:text>
-
+         <xsl:text> comes from list: [</xsl:text>
+		 
          <xsl:for-each select="$simpleRestrict/xsd:enumeration">
+            <xsl:variable name="documentation">
+               <xsl:for-each select="./xsd:annotation/xsd:documentation">
+                  <xsl:if test="position()!=1">
+                     <xsl:text>,</xsl:text>
+                  </xsl:if>
+                  <xsl:value-of select="generate-id(.)"/>
+               </xsl:for-each>
+            </xsl:variable>
+			
             <xsl:if test="position()!=1">
-               <xsl:text>|</xsl:text>
+               <xsl:text>,</xsl:text>
             </xsl:if>
-            <xsl:text>'</xsl:text>
-            <xsl:value-of select="@value"/>
-            <xsl:text>'</xsl:text>
+			
+		    <xsl:text>'</xsl:text>
+			<a class="dropdown-toggle" data-toggle="modal" data-target="#{$documentation}-popup" href="#">
+			   <xsl:value-of select="@value"/>
+			</a>
+		    <xsl:text>'</xsl:text>
          </xsl:for-each>
 
-         <xsl:text>}</xsl:text>
+         <xsl:text>]</xsl:text>
       </xsl:if>
    </xsl:template>
 
