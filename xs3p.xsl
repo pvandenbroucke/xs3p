@@ -325,9 +325,7 @@
                </xsl:choose>
             </style>
 
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js">
-              // Import Markdown converter for comments processing
-            </script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.js"  type="text/javascript" charset="UTF-8"></script>
 
          </head>
          <body data-spy="scroll" data-target=".xs3p-sidebar" data-offset="65">
@@ -444,12 +442,8 @@
                </div>
             </div>
 
-            <script src="{$jQueryURL}">
-              // Import JQuery, required for Bootstrap
-            </script>
-            <script src="{$bootstrapURL}/js/bootstrap.min.js">
-              // Import Bootstrap JS code
-            </script>
+            <script src="{$jQueryURL}" type="text/javascript" charset="UTF-8"></script>
+            <script src="{$bootstrapURL}/js/bootstrap.min.js" type="text/javascript" charset="UTF-8"></script>
             <script>
                <xsl:text disable-output-escaping="yes">
 
